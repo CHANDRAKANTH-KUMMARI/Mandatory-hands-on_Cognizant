@@ -1,0 +1,64 @@
+Exercise 7: Financial Forecasting
+Scenario: 
+You are developing a financial forecasting tool that predicts future values based on past data.
+Steps:
+1.	Understand Recursive Algorithms:
+Explain the concept of recursion and how it can simplify certain problems.
+2.	Setup:
+Create a method to calculate the future value using a recursive approach.
+3.	Implementation:
+Implement a recursive algorithm to predict future values based on past growth rates.
+4.	Analysis:
+Discuss the time complexity of your recursive algorithm.
+Explain how to optimize the recursive solution to avoid excessive computation.
+
+
+Step 1: Understand Recursive Algorithms
+Recursion means a method calling itself to solve a smaller version of the same problem.
+It’s like solving a big puzzle one piece at a time.
+Example:
+Opening Nested Boxes:
+You have a big box. Inside that, there’s a smaller box, and inside that — another smaller box… You keep opening boxes until there’s no more box.
+That last empty box is the base case.
+Then, you start closing all the boxes one by one (unwinding the recursion).
+Recursion is when a solution involves solving a smaller version of itself, until it’s small enough to stop.
+
+
+Step 2: Setup
+We want to create a method that takes:
+Present value (starting money)
+Growth rate (like 10% every year)
+Number of years
+And returns how much money we’ll have in the future — using recursion.
+
+
+Step 3: Implementation
+public class FinancialForecast 
+{
+        public static double calculateFutureValue(double currentAmount, double rate, int yearsLeft) {
+               if (yearsLeft == 0) 
+               {
+                  return currentAmount;
+               }
+
+               double grownAmount = currentAmount * (1 + rate);
+        return calculateFutureValue(grownAmount, rate, yearsLeft - 1);
+       }
+
+    public static void main(String[] args) {
+        double initialAmount = 1000.0; 
+        double growthRate = 0.10;            
+        int years = 5;
+
+        double futureValue = calculateFutureValue(initialAmount, growthRate, years);
+        System.out.printf("Future Value after %d years: ₹%.2f", years, futureValue);
+    }
+}
+
+
+Step 4: Analysis
+Time Complexity:
+Since the function runs once per year, the time complexity is O(n) where n = number of years.
+If the calculation was more complex (like involving past values too), recursion could repeat the same work many times.
+Use memoization: store already calculated values so you don’t repeat them.
+Or convert it into a loop-based (iterative) solution which uses less memory.
