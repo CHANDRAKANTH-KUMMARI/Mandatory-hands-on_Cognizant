@@ -1,0 +1,56 @@
+Exercise 4: Arrange-Act-Assert (AAA) Pattern, Test Fixtures, Setup and 
+Teardown Methods in JUnit 
+Scenario: 
+You need to organize your tests using the Arrange-Act-Assert (AAA) pattern and use setup 
+and teardown methods. 
+Steps: 
+1. Write tests using the AAA pattern. 
+2. Use @Before and @After annotations for setup and teardown methods.
+
+
+
+1. Write tests using the AAA pattern.
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+}
+
+
+2. Use @Before and @After annotations for setup and teardown methods.
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class CalculatorTest {
+
+    private Calculator calculator;
+
+    @Before
+    public void setUp() {
+        calculator = new Calculator();
+    }
+
+    @After
+    public void tearDown() {
+        calculator = null;
+    }
+
+    @Test
+    public void testAddition() {
+        int a = 5;
+        int b = 3;
+        int result = calculator.add(a, b);
+        assertEquals(8, result);
+    }
+
+    @Test
+    public void testSubtraction() {
+        int result = calculator.subtract(10, 4);
+        assertEquals(6, result);
+    }
+}
