@@ -1,0 +1,69 @@
+Exercise 3: Stored Procedures
+
+Scenario 1: The bank needs to process monthly interest for all savings accounts.
+o	Question: Write a stored procedure ProcessMonthlyInterest that calculates and updates the balance of all savings accounts by applying an interest rate of 1% to the current balance.
+
+Scenario 2: The bank wants to implement a bonus scheme for employees based on their performance.
+o	Question: Write a stored procedure UpdateEmployeeBonus that updates the salary of employees in a given department by adding a bonus percentage passed as a parameter.
+
+Scenario 3: Customers should be able to transfer funds between their accounts.
+o	Question: Write a stored procedure TransferFunds that transfers a specified amount from one account to another, checking that the source account has sufficient balance before making the transfer.
+
+
+
+Scenario 1: The bank needs to process monthly interest for all savings accounts.
+CREATE OR REPLACE PROCEDURE ProcessMonthlyInterest IS
+BEGIN
+  UPDATE Accounts
+  SET Balance = Balance + (Balance * 0.01)
+  WHERE AccountType = 'SAVINGS';
+  DBMS_OUTPUT.PUT_LINE('Monthly interest applied to all savings accounts.');
+END;
+/
+
+Scenario 2: The bank wants to implement a bonus scheme for employees based on their performance.
+CREATE OR REPLACE PROCEDURE UpdateEmployeeBonus(
+  dept_id IN NUMBER,
+  bonus_percent IN NUMBER
+) IS
+BEGIN
+  UPDATE Employees
+  SET Salary = Salary + (Salary * bonus_percent / 100)
+  WHERE DepartmentID = dept_id;
+
+  DBMS_OUTPUT.PUT_LINE('Bonus of ' || bonus_percent || '% applied to Department ID: ' || dept_id);
+END;
+/
+
+Scenario 3: Customers should be able to transfer funds between their accounts.
+CREATE OR REPLACE PROCEDURE TransferFunds(
+  from_account_id IN NUMBER,
+  to_account_id IN NUMBER,
+  amount IN NUMBER
+) IS
+  current_balance NUMBER;
+BEGIN
+    SELECT Balance INTO current_balance
+  FROM Accounts
+  WHERE AccountID = from_account_id;
+
+  IF current_balance < amount THEN
+    DBMS_OUTPUT.PUT_LINE('Transfer failed: Insufficient funds in account ' || from_account_id);
+  ELSE
+    
+    UPDATE Accounts
+    SET Balance = Balance - amount
+    WHERE AccountID = from_account_id;
+
+
+    UPDATE Accounts
+    SET Balance = Balance + amount
+    WHERE AccountID = to_account_id;
+
+    DBMS_OUTPUT.PUT_LINE('Successfully transferred ' || amount ||
+                         ' from Account ' || from_account_id ||
+                         ' to Account ' || to_account_id);
+  END IF;
+END;
+/
+
