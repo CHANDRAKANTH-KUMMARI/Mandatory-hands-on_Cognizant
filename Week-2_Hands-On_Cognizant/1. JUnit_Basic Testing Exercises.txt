@@ -1,0 +1,57 @@
+Exercise 1: Setting Up JUnit 
+Scenario: 
+You need to set up JUnit in your Java project to start writing unit tests. 
+Steps: 
+1. Create a new Java project in your IDE (e.g., IntelliJ IDEA, Eclipse). 
+2. Add JUnit dependency to your project. If you are using Maven, add the following to your 
+pom.xml: 
+<dependency> 
+<groupId>junit</groupId> 
+<artifactId>junit</artifactId> 
+<version>4.13.2</version> 
+<scope>test</scope> 
+</dependency> 
+3. Create a new test class in your project. 
+
+
+
+
+1. Create a new Java project in your IDE (e.g., IntelliJ IDEA, Eclipse). 
+Open your IDE
+Create a new Maven project
+In Eclipse: File > New > Maven Project
+
+2. Add JUnit dependency to your project. If you are using Maven, add the following to your 
+pom.xml: 
+<dependency> 
+<groupId>junit</groupId> 
+<artifactId>junit</artifactId> 
+<version>4.13.2</version> 
+<scope>test</scope> 
+</dependency>
+
+3. Create a new test class in your project.
+
+package com.example;
+
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+package com.example;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class CalculatorTest {
+
+    @Test
+    public void testAdd() {
+        Calculator calc = new Calculator();
+        int result = calc.add(2, 3);
+        assertEquals(5, result);  // Expected 5
+    }
+}
+output:
+Gives that test case is passes 1/1 ..shows green bar 
