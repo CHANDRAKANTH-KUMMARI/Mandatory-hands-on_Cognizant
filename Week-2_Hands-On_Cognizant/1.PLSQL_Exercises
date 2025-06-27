@@ -1,1 +1,62 @@
+Exercise 1: Control Structures
+Scenario 1: The bank wants to apply a discount to loan interest rates for customers above 60 years old.
+o	Question: Write a PL/SQL block that loops through all customers, checks their age, and if they are above 60, apply a 1% discount to their current loan interest rates.
+Scenario 2: A customer can be promoted to VIP status based on their balance.
+o	Question: Write a PL/SQL block that iterates through all customers and sets a flag IsVIP to TRUE for those with a balance over $10,000.
+Scenario 3: The bank wants to send reminders to customers whose loans are due within the next 30 days.
+o	Question: Write a PL/SQL block that fetches all loans due in the next 30 days and prints a reminder message for each customer.
 
+
+Scenario 1: The bank wants to apply a discount to loan interest rates for customers above 60 years old.
+DECLARE
+  CURSOR senior_customers_cur IS
+    SELECT CustomerID, InterestRate
+    FROM Loans
+    JOIN Customers ON Loans.CustomerID = Customers.CustomerID
+    WHERE Age > 60;
+
+BEGIN
+  FOR cust IN senior_customers_cur LOOP
+    UPDATE Loans
+    SET InterestRate = InterestRate - 1
+    WHERE CustomerID = cust.CustomerID;
+
+    DBMS_OUTPUT.PUT_LINE('Applied 1% discount for Customer ID: ' || cust.CustomerID);
+  END LOOP;
+END;
+/
+
+Scenario 2: A customer can be promoted to VIP status based on their balance.
+DECLARE
+  CURSOR high_balance_cur IS
+    SELECT CustomerID, Balance
+    FROM Customers
+    WHERE Balance > 10000;
+
+BEGIN
+  FOR cust IN high_balance_cur LOOP
+    UPDATE Customers
+    SET IsVIP = 'TRUE'
+    WHERE CustomerID = cust.CustomerID;
+
+    DBMS_OUTPUT.PUT_LINE('Customer ID: ' || cust.CustomerID || ' promoted to VIP.');
+  END LOOP;
+END;
+/
+
+Scenario 3: Send reminders for loans due in next 30 days
+DECLARE
+  CURSOR due_loans_cur IS
+    SELECT Loans.CustomerID, Customers.Name, Loans.DueDate
+    FROM Loans
+    JOIN Customers ON Loans.CustomerID = Customers.CustomerID
+    WHERE DueDate BETWEEN SYSDATE AND SYSDATE + 30;
+
+BEGIN
+  FOR loan IN due_loans_cur LOOP
+    DBMS_OUTPUT.PUT_LINE('Reminder: Dear ' || loan.Name ||
+                         ', your loan is due on ' || TO_CHAR(loan.DueDate, 'DD-Mon-YYYY') ||
+                         '. Please make the payment on time.');
+  END LOOP;
+END;
+/
