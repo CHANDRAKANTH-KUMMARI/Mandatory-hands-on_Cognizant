@@ -1,0 +1,73 @@
+Exercise 3: Assertions in JUnit 
+Scenario: 
+You need to use different assertions in JUnit to validate your test results. 
+Steps: 
+1. Write tests using various JUnit assertions. 
+Solution Code: 
+ 
+public class AssertionsTest { 
+    @Test 
+    public void testAssertions() { 
+        // Assert equals 
+        assertEquals(5, 2 + 3); 
+ 
+        // Assert true 
+        assertTrue(5 > 3); 
+ 
+        // Assert false 
+        assertFalse(5 < 3); 
+ 
+        // Assert null 
+        assertNull(null); 
+ 
+        // Assert not null 
+        assertNotNull(new Object()); 
+    } 
+} 
+
+
+1. Write tests using various JUnit assertions.
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class SampleAssertionsTest {
+
+    @Test
+    public void testEquality() {
+        assertEquals("Sum should be 10", 10, 5 + 5);
+    }
+
+    @Test
+    public void testBooleanConditions() {
+        assertTrue("5 is greater than 3", 5 > 3);
+        assertFalse("3 is not greater than 5", 3 > 5);
+    }
+
+    @Test
+    public void testNullChecks() {
+        Object obj = null;
+        Object notNullObj = new Object();
+
+        assertNull("Object should be null", obj);
+        assertNotNull("Object should not be null", notNullObj);
+    }
+
+    @Test
+    public void testSameObjectReference() {
+        String a = "JUnit";
+        String b = a;
+
+        assertSame("Both should refer to the same object", a, b);
+        assertNotSame("New string should not refer to same object", a, new String("JUnit"));
+    }
+
+    @Test
+    public void testArrayEquality() {
+        int[] expected = {1, 2, 3};
+        int[] actual = {1, 2, 3};
+
+        assertArrayEquals("Arrays should be equal", expected, actual);
+    }
+}
+
