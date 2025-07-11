@@ -1,0 +1,76 @@
+<bean id="countryList" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <bean class="com.cognizant.spring-learn.model.Country">
+                <property name="code" value="IN" />
+                <property name="name" value="India" />
+            </bean>
+            <bean class="com.cognizant.spring-learn.model.Country">
+                <property name="code" value="US" />
+                <property name="name" value="United States" />
+            </bean>
+            <bean class="com.cognizant.spring-learn.model.Country">
+                <property name="code" value="JP" />
+                <property name="name" value="Japan" />
+            </bean>
+        </list>
+    </constructor-arg>
+</bean>
+
+package com.cognizant.spring-learn.service;
+
+import com.cognizant.spring-learn.model.Country;
+import com.cognizant.spring-learn.service.exception.CountryNotFoundException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CountryService {
+
+    public Country getCountry(String code) throws CountryNotFoundException {
+        ApplicationContext context = new ClassPathXmlApplicationContext("country.xml");
+        List<Country> countries = context.getBean("countryList", List.class);
+
+        return countries.stream()
+                .filter(c -> c.getCode().equalsIgnoreCase(code))
+                .findFirst()
+                .orElseThrow(() -> new CountryNotFoundException("Country Not Found"));
+    }
+}
+
+package com.cognizant.spring-learn.service.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Country not found")
+public class CountryNotFoundException extends Exception {
+
+    public CountryNotFoundException(String message) {
+        super(message);
+    }
+}
+
+package com.cognizant.spring-learn.controller;
+
+import com.cognizant.spring-learn.model.Country;
+import com.cognizant.spring-learn.service.CountryService;
+import com.cognizant.spring-learn.service.exception.CountryNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class CountryController {
+
+    @Autowired
+    private CountryService countryService;
+
+    @GetMapping("/countries/{code}")
+    public Country getCountry(@PathVariable String code) throws CountryNotFoundException {
+        return countryService.getCountry(code);
+    }
+}
+
