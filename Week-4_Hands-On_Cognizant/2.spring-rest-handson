@@ -1,73 +1,72 @@
-Hands on 2
-Spring Core – Load SimpleDateFormat from Spring Configuration XML 
+package com.cognizant.springlearn.model;
 
-SimpleDateFormat with the pattern ‘dd/MM/yyyy’ is created in multiple places of an application. To avoid creation of SimpleDateFormat in multiple places, define a bean in Spring XML Configuration file and retrieve the date.
+public class Country {
+    private String code;
+    private String name;
 
-Follow steps below to implement:
-•	Create spring configuration file date-format.xml in src/main/resources folder of 'spring-learn' project
-•	Open https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-factory-metadata
-•	Copy the XML defined in the section of previous step URL and paste it into date-format.xml
-•	Define bean tag in the XML with for date format. Refer code below.
+    public Country() {}
+
+    public Country(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    // Getters and Setters
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Country [code=" + code + ", name=" + name + "]";
+    }
+}
+
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dateFormat" class="java.text.SimpleDateFormat">
-        <constructor-arg value="dd/MM/yyyy" />
+    <bean id="country" class="com.cognizant.springlearn.model.Country">
+        <property name="code" value="IN"/>
+        <property name="name" value="India"/>
     </bean>
 
 </beans>
- 
-•	Create new method displayDate() in SpringLearnApplication.java
-•	In displayDate() method create the ApplicationContext. Refer code below:
- ApplicationContext context = new ClassPathXmlApplicationContext("date-format.xml");
-•	Get the dateFormat using getBean() method. Refer code below.
- SimpleDateFormat format = context.getBean("dateFormat", SimpleDateFormat.class);
-•	Using the format variable try to parse string '31/12/2018' to Date class and display the result using System.out.println.
-•	Run the application as 'Java Application' and check the result in console log output.
 
-Troubleshooting Tips 
-If the tomcat port has a conflict and the server is not starting include the below property in application.properties file in src/main/resources folder. 
- 
-
-
-
-
-•	Create new method displayDate() in SpringLearnApplication.java
 package com.cognizant.springlearn;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class SpringLearnApplication 
-{
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpringLearnApplication.class);
+import com.cognizant.springlearn.model.Country;
+
+public class SpringLearnApplication {
     public static void main(String[] args) {
-        SpringLearnApplication.displayDate();
+        displayCountry();
     }
-    public static void displayDate() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("date-format.xml");
-        SimpleDateFormat format = context.getBean("dateFormat", SimpleDateFormat.class);
-        try {
-            Date date = format.parse("31/12/2018");
-            System.out.println("Parsed Date: " + date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    public static void displayCountry() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("country.xml");
+        Country country = (Country) context.getBean("country");
+        System.out.println(country);
     }
 }
-Output:
-Parsed Date: Mon Dec 31 00:00:00 IST 2018
 
-
-
-
+Country [code=IN, name=India]
 
 
 
