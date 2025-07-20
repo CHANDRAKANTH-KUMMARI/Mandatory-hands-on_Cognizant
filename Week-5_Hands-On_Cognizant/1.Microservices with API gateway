@@ -1,0 +1,164 @@
+ ACCOUNT-SERVICE 
+
+package com.example.account;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AccountServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(AccountServiceApplication.class, args);
+    }
+}
+
+
+package com.example.account.controller;
+
+import com.example.account.model.Account;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
+
+@RestController
+@RequestMapping("/accounts")
+public class AccountController {
+
+    private Map<String, Account> accountDb = new HashMap<>();
+
+    @GetMapping("/{id}")
+    public Account getAccount(@PathVariable String id) {
+        return accountDb.getOrDefault(id, new Account(id, "Unknown", 0));
+    }
+
+    @PostMapping
+    public Account createAccount(@RequestBody Account account) {
+        accountDb.put(account.getId(), account);
+        return account;
+    }
+}
+
+package com.example.account.model;
+
+public class Account {
+    private String id;
+    private String name;
+    private double balance;
+
+    public Account() {}
+
+    public Account(String id, String name, double balance) {
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
+    }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public double getBalance() { return balance; }
+    public void setBalance(double balance) { this.balance = balance; }
+}
+
+
+LOAN SERVICE
+
+
+package com.example.loan;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LoanServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(LoanServiceApplication.class, args);
+    }
+}
+
+
+package com.example.loan.controller;
+
+import com.example.loan.model.Loan;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
+
+@RestController
+@RequestMapping("/loans")
+public class LoanController {
+
+    private Map<String, Loan> loanDb = new HashMap<>();
+
+    @GetMapping("/{id}")
+    public Loan getLoan(@PathVariable String id) {
+        return loanDb.getOrDefault(id, new Loan(id, 0, 0));
+    }
+
+    @PostMapping
+    public Loan createLoan(@RequestBody Loan loan) {
+        loanDb.put(loan.getId(), loan);
+        return loan;
+    }
+}
+
+
+package com.example.loan.model;
+
+public class Loan {
+    private String id;
+    private double amount;
+    private int duration;
+
+    public Loan() {}
+
+    public Loan(String id, double amount, int duration) {
+        this.id = id;
+        this.amount = amount;
+        this.duration = duration;
+    }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public double getAmount() { return amount; }
+    public void setAmount(double amount) { this.amount = amount; }
+    public int getDuration() { return duration; }
+    public void setDuration(int duration) { this.duration = duration; }
+}
+
+
+DEPENDENCIES for both 
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>service-name</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>service-name</name>
+    <description>Demo microservice</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.0</version>
+        <relativePath/>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
