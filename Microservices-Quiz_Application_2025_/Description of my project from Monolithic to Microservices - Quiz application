@@ -1,0 +1,14 @@
+This project is a Quiz Application that I initially built using a monolithic architecture and then refactored into microservices for better scalability, maintainability, and performance.
+In the monolithic version, all components — user management, quiz logic, and question handling — were tightly coupled into a single Spring Boot application. While functional, it lacked flexibility as the app grew.
+To overcome these limitations, I transitioned the system into a microservices architecture, breaking down the application into focused services:
+1. User Service – Manages user-related data and roles
+2. Quiz Service – Handles quiz creation and assignment
+3.Question Service – Stores and serves questions to quizzes
+
+Each service is built using Spring Boot, communicates over REST, and uses PostgreSQL as the backend database. Services are loosely coupled and can be independently deployed and scaled.
+
+This transformation taught me a lot about:
+Designing RESTful microservices
+Service-to-service communication
+Handling database-per-service pattern
+Real-world challenges in breaking monoliths
