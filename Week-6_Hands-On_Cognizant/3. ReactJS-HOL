@@ -1,0 +1,85 @@
+1. Explain what React components are
+React components are the building blocks of a React application. They are reusable pieces of UI that can display data and handle user interactions. A component can be as simple as a button or as complex as a whole page.
+
+2. Understand the difference between components and regular JavaScript functions
+A regular JavaScript function just performs a task or calculation.
+A React component (which can be written as a function) returns JSX — a special syntax that looks like HTML and is used to define UI elements. Components are meant to display content and interact with users.
+
+3. Identify the types of React components
+There are two main types of React components:
+
+Function components – Simple and modern way to create components using JavaScript functions.
+
+Class components – Older method that uses ES6 classes and includes features like state and lifecycle methods.
+
+4. Explain how a class component works
+A class component is a JavaScript class that extends React.Component. It must include a render() method, which returns JSX. It can also use state and lifecycle methods to manage data and handle different stages of the component's life.
+
+5. Explain how a function component works
+A function component is a regular JavaScript function that returns JSX. It is used to render UI and can use React Hooks (like useState and useEffect) to manage state and side effects.
+
+6. Define what a component constructor is in a class component
+The constructor is a special function in a class component that is called when the component is created. It’s used to set up initial state or bind methods. It is defined using constructor(props) and usually starts with super(props).
+
+7. Define the purpose of the render() function in class components
+The render() function is a required method in class components. It returns the JSX that defines what should appear on the screen. Whenever the component's state or props change, render() is called again to update the UI.
+
+
+import React from 'react';
+import '../Stylesheets/mystyle.css';
+
+function CalculateScore(props) {
+  const average = props.total / 5;
+
+  return (
+    <div className="score-container">
+      <h2>Student Score Report</h2>
+      <p>Name: {props.name}</p>
+      <p>School: {props.school}</p>
+      <p>Total Marks: {props.total}</p>
+      <p>Goal: {props.goal}</p>
+      <p>Average Score: {average}</p>
+    </div>
+  );
+}
+
+export default CalculateScore;
+
+.score-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  width: 300px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+
+.score-container h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.score-container p {
+  font-size: 16px;
+  margin: 6px 0;
+}
+
+import React from 'react';
+import CalculateScore from './Components/CalculateScore';
+
+function App() {
+  return (
+    <div>
+      <CalculateScore 
+        name="Ravi Kumar"
+        school="Greenwood High School"
+        total={445}
+        goal="Become a software engineer"
+      />
+    </div>
+  );
+}
+
+export default App;
