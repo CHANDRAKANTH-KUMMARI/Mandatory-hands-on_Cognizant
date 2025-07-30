@@ -37,6 +37,32 @@ React Project: Student Management Portal
 You will build a simple React app named StudentApp with three components: Home, About, and Contact.
 
 Each component will display a welcome message. You will render all three components from App.js.
+1. Explain what React components are
+React components are the building blocks of a React application. They are reusable pieces of UI that can display data and handle user interactions. A component can be as simple as a button or as complex as a whole page.
+
+2. Understand the difference between components and regular JavaScript functions
+A regular JavaScript function just performs a task or calculation.
+A React component (which can be written as a function) returns JSX — a special syntax that looks like HTML and is used to define UI elements. Components are meant to display content and interact with users.
+
+3. Identify the types of React components
+There are two main types of React components:
+
+Function components – Simple and modern way to create components using JavaScript functions.
+
+Class components – Older method that uses ES6 classes and includes features like state and lifecycle methods.
+
+4. Explain how a class component works
+A class component is a JavaScript class that extends React.Component. It must include a render() method, which returns JSX. It can also use state and lifecycle methods to manage data and handle different stages of the component's life.
+
+5. Explain how a function component works
+A function component is a regular JavaScript function that returns JSX. It is used to render UI and can use React Hooks (like useState and useEffect) to manage state and side effects.
+
+6. Define what a component constructor is in a class component
+The constructor is a special function in a class component that is called when the component is created. It’s used to set up initial state or bind methods. It is defined using constructor(props) and usually starts with super(props).
+
+7. Define the purpose of the render() function in class components
+The render() function is a required method in class components. It returns the JSX that defines what should appear on the screen. Whenever the component's state or props change, render() is called again to update the UI.
+
 
 Step-by-step Instructions
 
