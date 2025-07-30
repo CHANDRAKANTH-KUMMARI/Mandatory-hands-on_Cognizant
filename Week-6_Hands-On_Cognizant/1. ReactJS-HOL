@@ -1,4 +1,18 @@
 Notes
+Objectives
+
+•	Define SPA and its benefits
+•	Define React and identify its working
+•	Identify the differences between SPA and MPA
+•	Explain Pros & Cons of Single-Page Application
+•	Explain about React
+•	Define virtual DOM
+•	Explain Features of React
+
+In this hands-on lab, you will learn how to:
+•	Set up a react environment
+•	Use create-react-app
+
 Estimated time to complete this lab: 30 minutes.
 Create a new React Application with the name “myfirstreact”, Run the application to print “welcome to the first session of React” as heading of that page.
 1.	To create a new React app, Install Nodejs and Npm from the following link:
@@ -15,6 +29,55 @@ https://nodejs.org/en/download/
 
 
 Answer:
+
+1.Define SPA and its benefits
+SPA means Single Page Application. It loads only one web page and updates content dynamically without refreshing the whole page.
+Benefits:
+Fast page loading
+Smooth user experience
+Uses less server bandwidth
+Better for creating dynamic and interactive apps
+
+2.Define React and identify its working
+React is a JavaScript library used to build user interfaces. It helps in creating web apps using small pieces called components.
+How it works:
+React uses a virtual DOM. When you make changes, React updates only the changed parts, not the whole page. This makes the app faster and more efficient.
+
+3.Identify the differences between SPA and MPA
+SPA means Single Page Application. MPA means Multi Page Application.
+SPA:
+Loads one page and updates parts dynamically
+Faster and smoother
+Good for dynamic apps
+MPA:
+Loads a new page on each request
+Slower compared to SPA
+Better for large websites and SEO
+
+4.Explain Pros and Cons of Single Page Application
+Pros:
+Fast performance
+No full page reload
+Good user experience
+Cons:
+SEO is harder
+Initial load time can be more
+Can be complex to manage
+
+5.Explain about React
+React is a tool for building web interfaces. It is created by Facebook. It uses components, virtual DOM, and works well for fast and modern web apps. Developers use React to build both small and large applications easily.
+
+6.Define virtual DOM
+Virtual DOM is a lightweight copy of the real browser DOM. React uses it to find the changes and then updates only those parts in the real DOM. This improves speed and performance.
+
+7.Explain Features of React
+Component-based structure
+Uses JSX to write HTML in JavaScript
+Fast performance using virtual DOM
+One-way data flow
+Easy to reuse code
+Large community and tool support
+
 npm install -g create-react-app
 npx create-react-app myfirstreact
 cd myfirstreact
