@@ -1,0 +1,67 @@
+npm install
+CohortDetails.module.css
+.box {
+  width: 300px;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+dt {
+  font-weight: 500;
+}
+import styles from './CohortDetails.module.css';
+<div className={styles.box}>
+<h3 style={{ color: props.status === 'ongoing' ? 'green' : 'blue' }}>
+  {props.title}
+</h3>
+npm start
+http://localhost:3000
+import React from 'react';
+import styles from './CohortDetails.module.css';
+
+function CohortDetails(props) {
+  return (
+    <div className={styles.box}>
+      <h3 style={{ color: props.status === 'ongoing' ? 'green' : 'blue' }}>
+        {props.title}
+      </h3>
+      <dl>
+        <dt>ID:</dt>
+        <dd>{props.id}</dd>
+        <dt>Status:</dt>
+        <dd>{props.status}</dd>
+        <dt>Mentor:</dt>
+        <dd>{props.mentor}</dd>
+      </dl>
+    </div>
+  );
+}
+
+export default CohortDetails;
+import React from 'react';
+import CohortDetails from './CohortDetails';
+
+function App() {
+  return (
+    <div>
+      <h1>My Academy Dashboard</h1>
+      <CohortDetails
+        id="C101"
+        title="React Bootcamp"
+        status="ongoing"
+        mentor="Amit Verma"
+      />
+      <CohortDetails
+        id="C102"
+        title="Java Backend Training"
+        status="completed"
+        mentor="Neha Sharma"
+      />
+    </div>
+  );
+}
+
+export default App;
