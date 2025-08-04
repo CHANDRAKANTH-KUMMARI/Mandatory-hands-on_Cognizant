@@ -1,0 +1,120 @@
+Objectives
+
+•	Define JSX
+•	Explain about ECMA Script
+•	Explain React.createElement()
+•	Explain how to create React nodes with JSX
+•	Define how to render JSX to DOM
+•	Explain how to use JavaScript expressions in JSX
+•	Explain how to use inline CSS in JSX
+
+
+In this hands-on lab, you will learn how to:
+•	Use JSX syntax in React applications
+•	Use inline CSS in JSX
+Prerequisites
+
+The following is required to complete this hands-on lab:
+•	Node.js
+•	NPM
+•	Visual Studio Code
+
+Notes
+
+Estimated time to complete this lab: 60 minutes.
+Create a React Application named “officespacerentalapp” which uses React JSX to create elements, attributes and renders DOM to display the page.
+
+Create an element to display the heading of the page.
+Attribute to display the image of the office space
+Create an object of office to display the details like Name, Rent and Address.
+Create a list of Object and loop through the office space item to display more data.
+To apply Css, Display the color of the Rent in Red if it’s below 60000 and in Green if it’s above 60000.
+
+
+
+Output:
+ 1. Define JSX
+JSX (JavaScript XML) is a syntax extension for JavaScript used in React to write HTML-like code inside JavaScript. JSX lets you describe the UI in a readable way and is transformed into React.createElement() calls by Babel during compilation.
+
+2. Explain about ECMA Script
+ECMAScript (often shortened to ES) is the standardized scripting language on which JavaScript is based. It defines the rules, syntax, and features of the language. ES6 (also called ES2015) introduced many modern features like let, const, arrow functions, classes, promises, and modules.
+
+3. Explain React.createElement()
+React.createElement(type, props, children) is a function provided by React to create virtual DOM elements. JSX is just a cleaner syntax that gets compiled to this function behind the scenes. Example:
+
+React.createElement('h1', { className: 'title' }, 'Hello')
+4. Explain how to create React nodes with JSX
+React nodes (UI elements) can be created using JSX by writing HTML-like tags in JavaScript. Example:
+
+const element = <h1>Welcome to React</h1>;
+5. Define how to render JSX to DOM
+JSX can be rendered to the real browser DOM using:
+
+ReactDOM.render(element, document.getElementById('root'));
+This tells React to render the JSX element inside the DOM element with ID root.
+
+6. Explain how to use JavaScript expressions in JSX
+You can embed JavaScript expressions in JSX by using curly braces {}. Example:
+
+
+const user = 'Kanth';  
+const element = <h1>Hello, {user}</h1>;
+7. Explain how to use inline CSS in JSX
+In JSX, inline styles are added using the style attribute with a JavaScript object. The CSS property names use camelCase instead of hyphens. Example:
+
+<p style={{ color: 'green', fontSize: '18px' }}>This is styled text</p>
+
+
+Answer:
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+const heading = <h1>Office Space Rental Listings</h1>;
+
+const imageURL = "https://via.placeholder.com/400x200.png?text=Office+Space";
+const imageElement = <img src={imageURL} alt="Office Space" style={{ width: "400px", height: "200px" }} />;
+
+const office1 = {
+  name: "Downtown Workspace",
+  rent: 55000,
+  address: "123 Main St, Hyderabad"
+};
+
+const officeList = [
+  { name: "Downtown Workspace", rent: 55000, address: "123 Main St, Hyderabad" },
+  { name: "Tech Park Hub", rent: 70000, address: "IT Park Rd, Bengaluru" },
+  { name: "Startup Bay", rent: 40000, address: "Sector 18, Noida" },
+  { name: "Elite Towers", rent: 80000, address: "MG Road, Pune" }
+];
+
+const App = () => {
+  return (
+    <div style={{ fontFamily: "Arial", padding: "20px" }}>
+      {heading}
+      {imageElement}
+      <h2>Featured Office</h2>
+      <p><strong>Name:</strong> {office1.name}</p>
+      <p><strong>Rent:</strong> <span style={{ color: office1.rent < 60000 ? "red" : "green" }}>{office1.rent}</span></p>
+      <p><strong>Address:</strong> {office1.address}</p>
+
+      <h2>Available Spaces</h2>
+      {officeList.map((office, index) => (
+        <div key={index} style={{ marginBottom: "20px" }}>
+          <p><strong>Name:</strong> {office.name}</p>
+          <p><strong>Rent:</strong> <span style={{ color: office.rent < 60000 ? "red" : "green" }}>{office.rent}</span></p>
+          <p><strong>Address:</strong> {office.address}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+
+
+ 
+ 
+
+
