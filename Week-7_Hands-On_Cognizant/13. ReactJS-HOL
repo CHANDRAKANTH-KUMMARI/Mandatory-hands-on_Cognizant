@@ -1,0 +1,160 @@
+Objectives
+
+•	Explain various ways of conditional rendering
+•	Explain how to render multiple components
+•	Define list component
+•	Explain about keys in React applications
+•	Explain how to extract components with keys
+•	Explain React Map, map() function
+
+In this hands-on lab, you will learn how to:
+•	Implement conditional rendering in React applications
+
+Prerequisites
+
+The following is required to complete this hands-on lab:
+•	Node.js
+•	NPM
+•	Visual Studio Code
+
+Notes
+
+Estimated time to complete this lab: 60 minutes.
+Create a React App named “bloggerapp” in with 3 components.
+
+1.	Book Details
+2.	Blog Details
+3.	Course Details
+
+Implement this with as many ways possible of Conditional Rendering.
+
+
+Answer:
+
+1. Explain various ways of conditional rendering
+React supports multiple ways to conditionally render components:
+if-else statements
+Ternary operator (condition ? A : B)
+Logical AND (condition && <Component />)
+Element variables to store JSX conditionally
+ 
+Explain how to render multiple components
+<div>
+  <Component1 />
+  <Component2 />
+</div>
+
+3. Define list component
+A list component is used to render multiple similar elements (like blog posts or courses). Usually done using the .map() function on an array.
+
+4. Explain about keys in React applications
+Keys help React identify which items have changed, added, or removed. Keys should be unique and stable for each element in a list.
+
+5. Explain how to extract components with keys
+When mapping over a list, extract the component and pass key as a prop at the top level of returned JSX.
+
+6. Explain React Map, map() function
+The .map() function is used to loop through arrays and render elements.
+
+npx create-react-app bloggerapp
+cd bloggerapp
+npm start
+
+import React, { useState } from 'react';
+
+function BookDetails() {
+  return (
+    <div>
+      <h3>📚 Book Details</h3>
+      <ul>
+        <li>Title: React Simplified</li>
+        <li>Author: Dan Abramov</li>
+        <li>Pages: 250</li>
+      </ul>
+    </div>
+  );
+}
+
+function BlogDetails({ blogs }) {
+  return (
+    <div>
+      <h3>📝 Blog Posts</h3>
+      <ul>
+        {blogs.map(blog => (
+          <li key={blog.id}>{blog.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function CourseDetails({ courses }) {
+  return (
+    <div>
+      <h3>🎓 Course List</h3>
+      {courses.length === 0 ? (
+        <p>No courses available</p>
+      ) : (
+        <ul>
+          {courses.map(course => (
+            <li key={course.id}>
+              {course.name} - {course.duration}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const [showBook, setShowBook] = useState(true);
+  const [showBlogs, setShowBlogs] = useState(true);
+  const [showCourses, setShowCourses] = useState(true);
+
+  const blogs = [
+    { id: 1, title: "Intro to JSX" },
+    { id: 2, title: "React Components" },
+    { id: 3, title: "State vs Props" }
+  ];
+
+  const courses = [
+    { id: 'c1', name: "React Basics", duration: "2 weeks" },
+    { id: 'c2', name: "Advanced React", duration: "3 weeks" }
+  ];
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <h2>📰 Blogger App</h2>
+
+      {/* Buttons to toggle rendering */}
+      <button onClick={() => setShowBook(!showBook)}>
+        Toggle Book Details
+      </button>
+      <button onClick={() => setShowBlogs(!showBlogs)}>
+        Toggle Blog Details
+      </button>
+      <button onClick={() => setShowCourses(!showCourses)}>
+        Toggle Course Details
+      </button>
+
+      <hr />
+
+      {/* Conditional Rendering with if-else stored in variables */}
+      {showBook && <BookDetails />}
+
+      {/* Conditional rendering using ternary */}
+      {showBlogs ? <BlogDetails blogs={blogs} /> : <p>Blogs are hidden</p>}
+
+      {/* Conditional rendering using logical && */}
+      {showCourses && <CourseDetails courses={courses} />}
+    </div>
+  );
+}
+
+export default App;
+
+ 
+
+
+
