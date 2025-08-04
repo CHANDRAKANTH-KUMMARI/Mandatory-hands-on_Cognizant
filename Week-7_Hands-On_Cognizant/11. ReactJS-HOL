@@ -1,0 +1,142 @@
+Objectives
+
+•	Explain React events
+•	Explain about event handlers
+•	Define Synthetic event
+•	Identify React event naming convention
+
+In this hands-on lab, you will learn how to:
+•	Implement Event handling concept in React applications
+•	Use this keyword
+•	Use synthetic event
+Prerequisites
+
+The following is required to complete this hands-on lab:
+•	Node.js
+•	NPM
+•	Visual Studio Code
+
+Notes
+
+Estimated time to complete this lab: 90 minutes.
+
+Create a React Application “eventexamplesapp” to handle various events of the form elements in HTML.
+
+1.	Create “Increment” button to increase the value of the counter and “Decrement” button to decrease the value of the counter. The “Increase” button should invoke multiple methods. 
+a.	To increment the value
+b.	Say Hello followed by a static message.
+ 
+
+2.	Create a button “Say Welcome” which invokes the function which takes “welcome” as an argument.
+
+3.	Create a button which invokes synthetic event “OnPress” which display “I was clicked”
+
+Create a “CurrencyConvertor” component which will convert the Indian Rupees to Euro when the Convert button is clicked.
+
+Handle the Click event of the button to invoke the handleSubmit event and handle the conversion of the euro to rupees.
+
+
+
+
+Answer:
+1. Explain React events
+React events are actions triggered by user interaction (like clicks, typing, or form submission). React wraps native browser events into a cross-browser wrapper called SyntheticEvent, making event handling consistent across all browsers.
+
+2. Explain about event handlers
+Event handlers are functions executed in response to specific events. In React, they are passed as props to elements using camelCase naming like onClick, onChange
+
+3. Define Synthetic event
+A SyntheticEvent is React’s cross-browser wrapper around the native event. It provides the same interface across all browsers and includes all native event methods.
+
+4. Identify React event naming convention
+React uses camelCase for event names instead of lowercase HTML equivalents.
+
+npx create-react-app eventexamplesapp
+cd eventexamplesapp
+npm start
+
+import React, { Component } from 'react';
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      counter: 0,
+      amount: '',
+      result: null
+    };
+    this.handleIncrement = this.handleIncrement.bind(this);
+    this.sayHello = this.sayHello.bind(this);
+    this.handleDecrement = this.handleDecrement.bind(this);
+    this.sayWelcome = this.sayWelcome.bind(this);
+    this.handleCurrencyChange = this.handleCurrencyChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleIncrement() {
+    this.setState({ counter: this.state.counter + 1 });
+    this.sayHello();
+  }
+
+  sayHello() {
+    alert("Hello! Counter increased.");
+  }
+
+  handleDecrement = () => {
+    this.setState({ counter: this.state.counter - 1 });
+  }
+
+  sayWelcome(message) {
+    alert(message);
+  }
+
+  onPress = (e) => {
+    alert("I was clicked");
+  }
+
+  handleCurrencyChange(e) {
+    this.setState({ amount: e.target.value });
+  }
+
+  handleSubmit() {
+    const euro = this.state.amount / 90; // Approx rate
+    this.setState({ result: euro.toFixed(2) });
+  }
+
+  render() {
+    return (
+      <div style={{ padding: '20px' }}>
+        <h2>Counter: {this.state.counter}</h2>
+        <button onClick={this.handleIncrement}>Increment</button>
+        <button onClick={this.handleDecrement}>Decrement</button>
+
+        <br /><br />
+
+        <button onClick={() => this.sayWelcome("Welcome!")}>Say Welcome</button>
+
+        <br /><br />
+
+        <button onClick={this.onPress}>Click for Synthetic Event</button>
+
+        <br /><br />
+
+        <h3>Currency Convertor</h3>
+        <input
+          type="text"
+          value={this.state.amount}
+          onChange={this.handleCurrencyChange}
+          placeholder="Enter amount in INR"
+        />
+        <button onClick={this.handleSubmit}>Convert</button>
+        {this.state.result && (
+          <p>{this.state.amount} INR = {this.state.result} Euro</p>
+        )}
+      </div>
+    );
+  }
+}
+
+export default App;
+
+
+
