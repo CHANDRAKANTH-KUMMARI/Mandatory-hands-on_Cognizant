@@ -1,1 +1,155 @@
+Objectives
+
+•	List the features of ES6
+•	Explain JavaScript let
+•	Identify the differences between var and let
+•	Explain JavaScript const
+•	Explain ES6 class fundamentals
+•	Explain ES6 class inheritance
+•	Define  ES6 arrow functions
+•	Identify set(), map()
+
+In this hands-on lab, you will learn how to:
+•	Use map() method of ES6
+•	Apply arrow functions of ES6
+•	Implement Destructuring features of ES6
+Prerequisites
+
+The following is required to complete this hands-on lab:
+•	Node.js
+•	NPM
+•	Visual Studio Code
+
+Notes
+
+Estimated time to complete this lab: 60 minutes.
+Create a React Application named “cricketapp” with the following components:
+1.	ListofPlayers
+•	Declare an array with 11 players and store details of their names and scores using the map feature of ES6
+
+•	Filter the players with scores below 70 using arrow functions of ES6.
+2.	IndianPlayers
+
+a.	Display the Odd Team Player and Even Team players using the Destructuring features of ES6
+ 
+
+b.	Declare two arrays T20players and RanjiTrophy players and merge the two arrays and display them using the Merge feature of ES6
+
+Display these two components in the same home page using a simple if else in the flag variable.
+Output:
+When Flag=true
+When Flag=false
+Hint:
+
+Answer:
+Definitions and Explanations
+
+1. List the features of ES6:
+let and const keywords
+Arrow functions
+Classes and inheritance
+Template literals
+Default parameters
+Rest and spread operators
+Destructuring assignment
+Modules (import/export)
+Promises
+Map and Set objects
+
+2. Explain JavaScript let:
+let is used to declare block-scoped variables. Unlike var, it does not allow re-declaration in the same scope and is only accessible within the block where it is defined.
+
+3. Identify the differences between var and let:
+var is function-scoped, while let is block-scoped.
+var allows re-declaration, let does not in the same scope.
+var is hoisted with undefined value, let is hoisted but not initialized.
+
+4. Explain JavaScript const:
+const is used to declare constants. These are block-scoped and cannot be reassigned after the initial assignment. However, for objects or arrays, the contents can still be modified.
+
+5. Explain ES6 class fundamentals:
+ES6 introduced the class syntax for creating objects and dealing with inheritance. A class can have constructors, methods, and properties, making code more organized and object-oriented.
+
+6. Explain ES6 class inheritance:
+Inheritance in ES6 is achieved using the extends keyword. One class (child) can inherit methods and properties from another class (parent), allowing reuse and extension of functionality.
+
+7. Define ES6 arrow functions:
+Arrow functions provide a shorter syntax for writing functions. They do not bind their own this, making them useful in callbacks and methods. Example: (a, b) => a + b
+
+8. Identify set(), map():
+Set is a collection of unique values. It ignores duplicate entries.
+Map is a key-value pair collection that remembers the original insertion order of the keys.
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+const Flag = true;
+
+const ListofPlayers = () => {
+  const players = [
+    { name: "Virat", score: 95 },
+    { name: "Rohit", score: 85 },
+    { name: "Dhoni", score: 65 },
+    { name: "Rahul", score: 75 },
+    { name: "Jadeja", score: 45 },
+    { name: "Bumrah", score: 90 },
+    { name: "Ashwin", score: 50 },
+    { name: "Shami", score: 30 },
+    { name: "Gill", score: 80 },
+    { name: "Ishan", score: 60 },
+    { name: "Pant", score: 70 }
+  ];
+
+  const filteredPlayers = players.filter(player => player.score < 70);
+
+  return (
+    <div>
+      <h2>All Players</h2>
+      {players.map((player, index) => (
+        <p key={index}>{player.name} - {player.score}</p>
+      ))}
+
+      <h2>Players with score below 70</h2>
+      {filteredPlayers.map((player, index) => (
+        <p key={index}>{player.name} - {player.score}</p>
+      ))}
+    </div>
+  );
+};
+
+const IndianPlayers = () => {
+  const oddTeam = ["Virat", "Dhoni", "Jadeja", "Ashwin", "Gill"];
+  const evenTeam = ["Rohit", "Rahul", "Bumrah", "Shami", "Pant", "Ishan"];
+
+  const [one, two, three, four, five] = oddTeam;
+  const [six, seven, eight, nine, ten, eleven] = evenTeam;
+
+  const T20players = ["Surya", "Hardik", "Kishan"];
+  const RanjiTrophyPlayers = ["Pujara", "Rahane"];
+  const allPlayers = [...T20players, ...RanjiTrophyPlayers];
+
+  return (
+    <div>
+      <h2>Odd Team Players</h2>
+      <p>{one}, {two}, {three}, {four}, {five}</p>
+
+      <h2>Even Team Players</h2>
+      <p>{six}, {seven}, {eight}, {nine}, {ten}, {eleven}</p>
+
+      <h2>Merged Players List</h2>
+      <p>{allPlayers.join(", ")}</p>
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <div>
+      {Flag ? <ListofPlayers /> : <IndianPlayers />}
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
 
